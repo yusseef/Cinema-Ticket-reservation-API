@@ -8,7 +8,7 @@ class Guest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     phone = PhoneNumberField()
-    movie = models.ForeignKey('Movie', related_name='guest', on_delete=models.SET_NULL, null= True)
+    
 
 
     def __str__(self):
