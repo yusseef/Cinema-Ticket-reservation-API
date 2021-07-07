@@ -14,7 +14,7 @@ class HallSerializer(serializers.ModelSerializer):
 class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guest
-        fields = '__all__'
+        fields = ['id', 'name', 'phone', 'reservation']
 
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:

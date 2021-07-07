@@ -1,13 +1,13 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from ticket.views import no_rest_no_models, no_rest_models, FBV_list, FBV_pk
+from ticket.views import Guest_list, Guest_pk, Movies_list, Movies_pk
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('django/',no_rest_no_models ),
-    path('djangomodels/',no_rest_models ),
-    path('FBVlist/',FBV_list ),
-    path('FBVpk/<str:pk>',FBV_pk ),
-
+    path('Guestlist/',Guest_list ),
+    path('Guestpk/<str:pk>',Guest_pk ),
+    path('movieslist/', Movies_list),
+    path('moviespk/<str:pk>',Movies_pk ),
+   
 ]
