@@ -9,14 +9,17 @@ class MovieSerializer(serializers.ModelSerializer):
 class HallSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hall
-        fields = ['id', 'Hall_num', 'SeatAmount', 'Hall_size', 'hall']
+        fields = ['Hall_num', 'SeatAmount', 'Hall_size', 'movie']
 
 class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guest
-        fields = ['id', 'name', 'phone', 'reservation']
+        fields = ['name', 'phone', 'reservation']
 
 class ReservationSerializer(serializers.ModelSerializer):
+    movie_name = serializers.ReadOnlyField(source='movie.name')
+    hall_num = serializers.ReadOnlyField(source='hall.Hall_num')
+    guest_name = serializers.ReadOnlyField(source='guest.name')
     class Meta:
-        models = Reservation
-        fields = ['id', 'reservation']
+        model = Reservation
+        fields = ['guest_name', 'movie_name', 'hall_num']

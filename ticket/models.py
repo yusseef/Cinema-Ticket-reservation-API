@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 #Guest -- Movie -- Hall -- reservation
 
 class Guest(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   
     name = models.CharField(max_length=200)
     phone = PhoneNumberField()
     
@@ -15,7 +15,7 @@ class Guest(models.Model):
         return self.name
 
 class Movie(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  
     name = models.CharField(max_length=200)
     language = models.CharField(max_length=200)
     duration = models.IntegerField()
@@ -27,20 +27,20 @@ class Movie(models.Model):
         return self.name
 
 class Hall(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
     Hall_num = models.IntegerField()
     SeatAmount = models.IntegerField()
     Hall_size = models.IntegerField()
-    movie = models.ForeignKey(Movie, related_name='hall', on_delete=models.SET_NULL, null=True, blank=True)
+    movie = models.ForeignKey(Movie, related_name='movie', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.movie, self.Hall_num)
 
 
 class Reservation(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    guest = models.ForeignKey(Guest, related_name='reservation', on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, related_name='reservation', on_delete=models.CASCADE)
+
+    guest = models.ForeignKey(Guest, related_name='reservation', on_delete=models.CASCADE)
     hall = models.ForeignKey(Hall, related_name='reservation', on_delete=models.CASCADE)
 
     def __str__(self):

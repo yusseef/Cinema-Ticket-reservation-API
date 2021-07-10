@@ -83,3 +83,72 @@ def Movies_pk(request, pk):
     elif request.method == 'DELETE':
         movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def Hall_list(request):
+    if request.method == 'GET':
+        hall = Hall.objects.all()
+        serializer = HallSerializer(hall, many=True)
+        return Response(serializer.data)
+    
+    if request.method == 'POST':
+        serializer = HallSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Hall_pk(request, pk):
+    try:
+        hall = Hall.objects.get(pk=pk)
+    except hall.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = HallSerializer(hall)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = HallSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+    elif request.method == 'DELETE':
+        hall.delete()
+        return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET', 'POST'])
+def Reservation_list(request):
+    if request.method == 'GET':
+        reservations = Reservation.objects.all()
+        serializer = ReservationSerializer(reservations, many=True)
+        return Response(serializer.data)
+    
+    if request.method == 'POST':
+        serializer = ReservationSerializer(data = request.data)
+        if serializer.is_valid():
+            return Response(serializer.data)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Reservation_pk(request, pk):
+    try:
+        reservation = Reservation.objects.get(pk=pk)
+    except reservation.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = ReservationSerializer(reservation)
+        return Response(serializer.data)
+    
+    if request.method == 'PUT':
+        serializer = ReservationSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+    
+    if request.method == 'DELETE':
+        reservation.delete()
+        return Response(status=status.HTTP_200_OK)
