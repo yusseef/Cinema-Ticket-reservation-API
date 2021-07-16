@@ -152,3 +152,22 @@ def Reservation_pk(request, pk):
     if request.method == 'DELETE':
         reservation.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def find_movie(request):
+    movie = Movie.objects.filter(
+        
+        name = request.data['name']
+        
+    )
+    serializer = MovieSerializer(movie, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def find_guest(request):
+    guest = Guest.objects.filter(
+        name = request.data['name']
+    )
+    serializer = GuestSerializer(guest, many=True)
+    return Response(serializer.data)

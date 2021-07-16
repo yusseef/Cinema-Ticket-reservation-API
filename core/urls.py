@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from ticket.views import Guest_list, Guest_pk, Movies_list, Movies_pk, Hall_list, Hall_pk, Reservation_list, Reservation_pk
+from ticket.views import Guest_list, Guest_pk, Movies_list, Movies_pk, Hall_list, Hall_pk, Reservation_list, Reservation_pk, find_guest, find_movie, find_guest
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
@@ -13,6 +13,9 @@ urlpatterns = [
     path('hallpk/<str:pk>',Hall_pk ),
     path('reservationlist/', Reservation_list),
     path('reservationpk/<str:pk>',Reservation_pk ),
+    path('findmovie/', find_movie),
+ 
+    path('findguest/', find_guest),
    
    
 ]
